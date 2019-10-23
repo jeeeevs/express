@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "express"
+  namespace: "default"
+  labels:
+    app: "express"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "express"
+  template:
+    metadata:
+      labels:
+        app: "express"
+    spec:
+      containers:
+      - name: "express-sha256"
+        image: "gcr.io/gcp-rain/github.com/jeeeevs/express@sha256:e81e183335f490ab906e48a70d87fd0bafbff5143bada5ce102f8c93dd9ecd81"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "express-hpa"
+  namespace: "default"
+  labels:
+    app: "express"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "express"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
