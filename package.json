@@ -1,14 +1,18 @@
 {
   "name": "express-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo express API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeeeevs/express.git"
+  },
+  "engines": {
+    "node": "^10.15.3",
+    "npm": "^6.9.0"
   },
   "author": "",
   "license": "ISC",
